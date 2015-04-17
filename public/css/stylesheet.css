@@ -1,0 +1,316 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+	background-color: #fff;
+	font-weight: 300;
+	color: #333;
+}
+
+h1, h2, h3, h4 {
+	font-weight: 300;
+	margin-top: 0px;
+}
+
+h1 {
+	font-size: 23px;
+}
+
+h2 {
+	font-size: 21px;
+}
+
+h3 {
+	font-size: 19px;
+}
+
+a {
+        color: #44aeff;
+        text-decoration: none;
+}
+
+.hidden {
+	display: none;
+}
+
+.right {
+	float: right;
+}
+
+div#container {
+	margin: 0px auto;
+	width: 800px;
+}
+
+div#content {
+	margin-top: 10px;
+}
+
+div#footer {
+	font-size: 13px;
+	text-align: center;
+	padding: 5px 0px;
+	border-top: 1px solid #e8e8e8;
+	border-bottom: 1px solid #e8e8e8;
+	margin: 15px 0px 5px 0px;
+	color: #999;
+}
+
+div.section {
+	margin-bottom: 15px;
+}
+
+div.section.login {
+	width: 300px;
+	margin: 50px auto;
+}
+
+label {
+	display: block;
+	padding: 2px 2px;
+	border-radius: 5px;
+}
+
+label:hover {
+	cursor: pointer;
+	background-color: #fafafa;
+}
+
+div.input, div.label {
+	display: inline-block;
+	padding: 0px 2px;
+}
+
+
+div.input-block {
+	padding: 5px 0px;
+	border-bottom: 1px solid #eee;
+}
+
+input, textarea, select {
+	font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        background-color: #fafafa;
+        border: 1px solid #cbcbcb;
+        border-radius: 5px;
+        box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+        padding: 2px 5px;
+        position: relative;
+        font-weight: 200;
+	-webkit-appearance: none;
+	line-height: 18px;
+}
+
+input[type='checkbox'] {
+	-webkit-appearance: checkbox;
+}
+
+textarea {
+	font-size: 14px;
+}
+
+select {
+	height: 24px;
+	-webkit-appearance: menulist;
+}
+
+input.text-input, textarea.text-area, select.select-input {
+	width: 95%;
+}
+
+.button, input[type='submit'] {
+        border-radius: 5px;
+        padding: 1px 10px;
+        font-size: 14px;
+        margin: 1px 0px;
+        background-color: #44aeff;
+	font-weight: 400;
+        color: #fff;
+        border: 1px solid #9bd4ff;
+}
+
+a.button {
+	line-height: 18px;
+}
+
+div.row {
+	border-bottom: 1px solid #e8e8e8;	
+	border-top: 1px solid transparent;
+	border-right: 1px solid transparent;
+	border-left: 1px solid transparent;
+	margin: 0px;
+	padding: 1px 0px 1px 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 15px;
+	line-height: 28px;
+}
+
+div.row.odd {
+	background-color: rgba(200,200,200,0.15);
+}
+
+div.row.even {
+	background-color: rgba(255,255,255,0.25);
+}
+
+div.column {
+	display: inline-block;
+	vertical-align: top;
+	border-right: 1px solid #e6e6e6;
+	margin-right: 5px;
+	overflow: hidden;
+	padding-right: 5px;
+}
+
+div.error {
+	background-color: #fff9f0;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 2px 0px;
+}
+
+ul.pagination {
+	text-align: center;
+}
+
+ul.pagination li:first-child {
+	border-left: 1px solid #d6d6d6;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+ul.pagination li:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+ul.pagination li {
+	list-style: none;
+	border-right: 1px solid #d6d6d6;
+	border-top: 1px solid #d6d6d6;
+	border-bottom: 1px solid #d6d6d6;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul.pagination li a, ul.pagination li {
+	width: 25px;
+	display: inline-block;
+}
+
+a.menu-item-top {
+	display: inline-block;
+	margin: 5px;
+	padding: 2px 5px;
+	border: 1px solid #e8e8e8;
+	border-radius: 5px;
+	background-color: #fafafa;
+}
+
+div.league-teams {
+	min-height: 32px;
+	border: 1px solid #e8e8e8;
+	background-color: #fafafa;
+	border-radius: 5px;
+}
+
+div.teams-list {
+	float: right;
+	background-color: #fff;
+	border: 1px solid #e8e8e8;
+	padding: 5px;
+}
+
+input.team-filter {
+	width: 90%;
+}
+
+div.team-name {
+	white-space: nowrap;
+	padding: 5px 5px;
+	border: 1px solid #e8e8e8;
+	border-radius: 5px;
+	background-color: #fafafa;
+	margin: 2px;
+}
+
+div.team-name:hover {
+	cursor: move;
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+}
+
+div.team-name:active { 
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+}
+
+div.league-teams div.team-name {
+	display: inline-block;
+}
+
+div.teams-list div.remove-team {
+	display: none;
+}
+
+div.remove-team:hover, div.add-set:hover, div.remove-set:hover {
+	cursor: pointer;
+}
+
+div.remove-team, div.add-set, div.remove-set {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	position: relative;
+	float: right;
+	margin-left: 3px;
+}
+
+div.add-set:before {
+        position: absolute;
+        font-family: FontAwesome;
+        content: "\f067";
+        color: #333;
+        font-size: 18px;
+	top: 1px;
+	left: 2px;
+}
+
+
+
+div.remove-team:before, div.remove-set:before {
+        position: absolute;
+        font-family: FontAwesome;
+        content: "\f057";
+        color: #333;
+        font-size: 18px;
+	top: 1px;
+	left: 2px;
+}
+
+div.game {
+	display: block;
+	border: 1px solid #e8e8e8;
+	border-radius: 5px;
+	background-color: #fafafa;
+	margin: 5px;
+	padding: 5px;
+}
+
+div.court-name {
+	text-align: center;
+}
+
+div.game-set {
+	text-align: center;
+	padding: 2px;
+}
+
+input.game-set-score {
+	width: 30px;
+	text-align: center;
+	margin: 2px 5px;
+}
