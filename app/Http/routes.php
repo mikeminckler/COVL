@@ -36,6 +36,7 @@ Route::get('seasons/leagues', ['as' => 'seasons.leagues', 'uses' => 'SeasonsCont
 Route::post('seasons/leagues', ['as' => 'seasons.leagues.update', 'uses' => 'SeasonsController@storeLeagues']);
 Route::get('seasons/teams', ['as' => 'seasons.teams', 'uses' => 'SeasonsController@teams']);
 Route::post('seasons/teams', ['as' => 'seasons.teams.update', 'uses' => 'SeasonsController@storeTeams']);
+Route::get('seasons/standings', ['as' => 'seasons.standings', 'uses' => 'SeasonsController@standings']);
 
 
 Route::get('leagues', ['as' => 'leagues', 'uses' => 'LeaguesController@index']);
@@ -44,6 +45,7 @@ Route::post('leagues/create', ['as' => 'leagues.store', 'uses' => 'LeaguesContro
 Route::get('leagues/edit/{id}', ['as' => 'leagues.edit', 'uses' => 'LeaguesController@edit'])->where('id', '\d+');
 Route::post('leagues/edit/{id}', ['as' => 'leagues.update', 'uses' => 'LeaguesController@store'])->where('id', '\d+');
 Route::get('leagues/autocomplete-list', ['as' => 'leagues.autocomplete-list', 'uses' => 'LeaguesController@autocompleteList']);
+Route::get('leagues/populate', ['as' => 'leagues.populate', 'uses' => 'LeaguesController@populate']);
 
 
 

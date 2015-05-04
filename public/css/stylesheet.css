@@ -32,13 +32,19 @@ a {
 	display: none;
 }
 
+.ro {
+	border: 0;
+	background-color: transparent;
+	box-shadow: 0 0 0;
+}
+
 .right {
 	float: right;
 }
 
 div#container {
 	margin: 0px auto;
-	width: 800px;
+	width: 100%;
 }
 
 div#content {
@@ -126,6 +132,7 @@ input.text-input, textarea.text-area, select.select-input {
 	font-weight: 400;
         color: #fff;
         border: 1px solid #9bd4ff;
+	display: inline-block;
 }
 
 a.button {
@@ -256,7 +263,7 @@ div.teams-list div.remove-team {
 	display: none;
 }
 
-div.remove-team:hover, div.add-set:hover, div.remove-set:hover {
+div.remove-team:hover, div.add-set:hover, div.remove-set:hover, .button:hover {
 	cursor: pointer;
 }
 
@@ -265,8 +272,11 @@ div.remove-team, div.add-set, div.remove-set {
 	width: 18px;
 	height: 18px;
 	position: relative;
-	float: right;
 	margin-left: 3px;
+}
+
+div.remove-team, div.add-set {
+	float: right;
 }
 
 div.add-set:before {
@@ -304,6 +314,10 @@ div.court-name {
 	text-align: center;
 }
 
+div.game-sets {
+	overflow: hidden;
+}
+
 div.game-set {
 	text-align: center;
 	padding: 2px;
@@ -313,4 +327,8 @@ input.game-set-score {
 	width: 30px;
 	text-align: center;
 	margin: 2px 5px;
+}
+
+div.game-teams {
+	text-align: center;
 }

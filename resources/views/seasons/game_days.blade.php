@@ -7,10 +7,12 @@
 	<div class="row">{!! link_to_route('game-days.create', 'Create '.$season->season_name.' Game Days', ['season_id' => $season->id], ['class' => 'button']) !!}</div>
 </div>
 
-@if (count($season->gameDays) > 0)
-	@include ('game_days.list', ['game_days' => $season->gameDays()->paginate(10)])
-@else
-	<div class="row">There are no Game Days</div>
-@endif
+<div class="section">
+	@if (count($season->gameDays) > 0)
+		@include ('game_days.list', ['game_days' => $season->gameDays()->paginate(10)])
+	@else
+		<div class="row">There are no Game Days</div>
+	@endif
+</div>
 
 @endsection

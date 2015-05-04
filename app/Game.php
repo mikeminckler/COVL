@@ -33,4 +33,36 @@ class Game extends Model {
 		return $this->hasMany('COVL\GameSet')->where('hidden', '0');
 	}
 
+	public function winner() {
+
+		$home = array();
+		$away = array();
+
+		$home['sets'] = 0;
+		$away['sets'] = 0;
+
+		foreach ($this->gameSets as $game_set) {
+			$home_points = count($game_set->home_points);
+			$away_points = count($game_set->away_points);
+
+			if ($home_points > $away_points) {
+				$home['sets'] ++;
+			} else if ($away_points > $home_points) {
+				$away['sets'] ++;
+			}
+
+		}
+		
+		$return = array();
+	
+		if ($home['sets'] > $away['sets']) {
+			$return[$this->home_team->id] = $home['sets'];
+		} else if ($home['sets'] < $away['sets']) {
+			$return[$this->away_team->id] = $away['sets'];
+		}
+
+		return $return;
+	}
+
+
 }

@@ -12,6 +12,9 @@
 		@foreach ($game_day->season->leagues as $league)
 			<div class="section">
 				<h2>{{ $league->league_name }}</h2>
+				<div class="row">
+					<div class="populate button" data-season-id="{{ $game_day->season->id }}" data-league-id="{{ $league->id }}">Top 5</div>
+				</div>
 				<div class="league-teams" data-league-id="{{ $league->id }}">
 					@if (count($game_day->teams($league)->get()) > 0)
 						@foreach ($game_day->teams($league)->get() as $team)

@@ -134,6 +134,15 @@ class SeasonsController extends Controller {
 		return redirect()->route('seasons'); 
 	}
 
+	public function standings(Request $request) {
+		$season = $this->season->find($request->id);
+		
+		if ($season instanceof Season) {
+                        return view('seasons.standings', compact('season', 'teams'));
+                } else {
+                        return redirect()->back();
+                }
+	}
 
 
 }

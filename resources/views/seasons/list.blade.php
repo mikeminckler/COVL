@@ -5,6 +5,7 @@
 			<div class="column" data-column="2">{!! link_to_route('seasons.game-days', 'Game Days', ['id' => $season->id]) !!}</div>
 			<div class="column" data-column="2">{!! link_to_route('seasons.leagues', 'Leagues', ['id' => $season->id]) !!}</div>
 			<div class="column" data-column="2">{!! link_to_route('seasons.teams', 'Teams', ['id' => $season->id]) !!}</div>
+			<div class="column" data-column="2">{!! link_to_route('seasons.standings', 'Standings', ['id' => $season->id]) !!}</div>
 		</div>
 	@endforeach
 	<div class="pagination">{!! $seasons->render() !!}</div>

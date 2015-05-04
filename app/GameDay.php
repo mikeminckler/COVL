@@ -40,7 +40,7 @@ class GameDay extends Model {
 	}
 
 	public function getLinkedNameAttribute() {
-		return link_to_route('seasons.game-days', $this->name, ['id' => $this->season->id]);
+		return link_to_route('seasons.game-days', $this->season->season_name, ['id' => $this->season->id]).' - '.$this->game_day_name.' - '.$this->start_time->format('D M j, g:ia');
 	}
 
 
@@ -126,7 +126,7 @@ class GameDay extends Model {
 
 	public function schedule() {
 
-		$games = $this->games()->delete();
+		//$games = $this->games()->delete();
 
 		$leagues = $this->season->leagues;
 
@@ -171,14 +171,27 @@ class GameDay extends Model {
 				}
 
 				foreach ($rounds as $round_id => $games) {
-					foreach ($games as $game_number => $game_teams) {
-						$game = new Game;
-						$game->game_day_id = $this->id;
-						$game->league_id = $league->id;
-						$game->home_team_id = $game_teams['home'];
-						$game->away_team_id = $game_teams['away'];
-						$game->round = $round_id + 1;
-						$game->save();
+					$round_check = Game::where('game_day_id', $this->id)
+								->where('round', ($round_id + 1))
+								->whereHas('gameSets', function($query) {
+									$query->where('hidden', '0');
+								})->where('league_id', $league->id)
+								->get();
+
+					if (count($round_check) == 0) {
+						$round_check = Game::where('game_day_id', $this->id)
+                                                                ->where('round', ($round_id + 1))
+								->where('league_id', $league->id)
+								->delete();
+						foreach ($games as $game_number => $game_teams) {
+							$game = new Game;
+							$game->game_day_id = $this->id;
+							$game->league_id = $league->id;
+							$game->home_team_id = $game_teams['home'];
+							$game->away_team_id = $game_teams['away'];
+							$game->round = $round_id + 1;
+							$game->save();
+						}
 					}
 				} 
 

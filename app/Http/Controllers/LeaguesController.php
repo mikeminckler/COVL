@@ -6,14 +6,16 @@ use COVL\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use COVL\League;
+use COVL\Season;
 use COVL\Http\Requests\StoreLeagueRequest;
 
 class LeaguesController extends Controller {
 
-	public function __construct(League $league) 
+	public function __construct(League $league, Season $season) 
 	{
 		$this->middleware('auth');
 		$this->league = $league;
+		$this->season = $season;
 	}
 	
 
@@ -64,6 +66,18 @@ class LeaguesController extends Controller {
 			$results[] = $data;
 		}
 		return $results;
+	}
+
+
+	public function populate(Request $request) {
+		
+		$league = $this->league->find($request->league_id);
+		$season = $this->season->find($request->season_id);
+
+		$standings = $league->standings($league->gameDays($season)->get());
+
+		return response()->json(['standings' => $standings]);
+
 	}
 
 /*

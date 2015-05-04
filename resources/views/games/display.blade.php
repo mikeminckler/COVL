@@ -1,6 +1,6 @@
 <div class="game" data-game-id="{{ $game->id }}">
 	<div class="game-teams">
-		@if ($game->away_team->id != 1)
+		@if ($game->away_team->id != 1 && !isset($ro))
 			<div class="add-set"></div>
 		@endif
 		{{ $game->home_team->team_name }} 

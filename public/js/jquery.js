@@ -107,29 +107,63 @@ $(function(){
                         url: '/game-sets/add',
                         data: {'game_id': $(this).parents('div.game').attr('data-game-id'), 'set_number': set_number},
                         success: function(response) {
+				$(container).height($(container).height());
                                 $(container).append(response.html);
+				$(container).animate({height: $(container).height() + 28}, 150, function() {
+					$(this).css('height', 'auto');
+					$(container).find('input.home-team').focus();
+				});
                         }
                 });
 	});
 
+	$(document).on('keydown', 'input.away-team', function(e) {
+		var code = e.keyCode || e.which;
+		console.log(code);
+                if (code == 9) {
+			$(this).parents('div.game').find('div.add-set').trigger('click');
+		}
+	});
+
 	$(document).on('click', 'div.remove-set', function() {
+		
 		if ($(this).parents('div.game-set').find('input.game-set-id').length > 0) {
-			$.ajax({
-				type: 'GET',
-				url: '/game-sets/delete',
-				data: {'game_set_id': $(this).parents('div.game-set').find('input.game-set-id').val()},
-				context: this,
-				success: function(response) {
-					$(this).parents('div.game-set').slideUp(250, function() {
-						$(this).remove();
-					});
-				}
-			});
+			var answer = confirm('Are you sure you want to delete this item?');
+                        if (answer == true) {
+				$.ajax({
+					type: 'GET',
+					url: '/game-sets/delete',
+					data: {'game_set_id': $(this).parents('div.game-set').find('input.game-set-id').val()},
+					context: this,
+					success: function(response) {
+						$(this).parents('div.game-set').slideUp(250, function() {
+							$(this).remove();
+						});
+					}
+				});
+			}
 		} else {
 			$(this).parents('div.game-set').slideUp(250, function() {
 				$(this).remove();
 			});
 		}
+	});
+
+
+	$(document).on('click', 'div.populate', function() {
+
+		$.ajax({
+			type: 'GET',
+			url: '/leagues/populate',
+			data: {'season_id': $(this).attr('data-season-id'), 'league_id': $(this).attr('data-league-id')},
+			context: this,
+			success: function(response) {
+				$.each(response, function() {
+					console.log(response);
+				});
+			}
+		});
+
 	});
 
 
