@@ -145,9 +145,6 @@ class GameDay extends Model {
 
 			if (count($teams) > 0) {
 
-				// remove all the old games, but only if there is no game data
-				$old_games = $this->games($league);
-
 				// if we have an odd number of teams add a 'bye' team
 				if (count($teams)%2 != 0){
 					array_push($teams,"1");
@@ -195,6 +192,9 @@ class GameDay extends Model {
 					}
 				} 
 
+			} else {
+				// remove all the old games, but only if there is no game data
+				$old_games = $this->games($league)->delete();
 			}
 
 		}
