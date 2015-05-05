@@ -167,6 +167,13 @@ class GameDay extends Model {
 					}
 				}
 
+				
+				$clear_rounds = Game::where('game_day_id', $this->id)
+                                                                ->where('round', '>', count($rounds))
+                                                                ->where('league_id', $league->id)
+                                                                ->delete();
+
+
 				foreach ($rounds as $round_id => $games) {
 					$round_check = Game::where('game_day_id', $this->id)
 								->where('round', ($round_id + 1))
