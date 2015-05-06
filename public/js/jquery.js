@@ -81,7 +81,7 @@ $(function(){
 	$('div.league-teams').droppable({
 		drop:function(event, ui) {
 			var team_id = ui.draggable.find('input.team-value').val();
-			ui.draggable.detach().appendTo($(this)).find('input.team-value').attr('name', 'league_teams[' + $(this).attr('data-league-id') + '][' + team_id + ']');
+			ui.draggable.detach().appendTo($(this)).find('input.team-value').attr('name', 'league_teams[' + $(this).attr('data-league-id') + '][]');
 		}
 	});
 
