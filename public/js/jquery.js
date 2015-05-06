@@ -174,7 +174,7 @@ function resize() {
 	var container_width = $(window).width();
 
 	if (container_width > 800) {
-		container_width = 800;
+		//container_width = 800;
 	}
 
 	$('div#container').animate({width: container_width}, dur);
