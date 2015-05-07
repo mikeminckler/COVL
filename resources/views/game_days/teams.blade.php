@@ -17,8 +17,10 @@
 				</div>
 				<div class="league-teams" data-league-id="{{ $league->id }}">
 					@if (count($game_day->teams($league)->get()) > 0)
+						<?php $count = 1; ?>
 						@foreach ($game_day->teams($league)->get() as $team)
-							@include ('teams.team_name', ['team' => $team, 'league' => $league])
+							@include ('teams.team_name', ['team' => $team, 'league' => $league, 'count' => $count])
+							<?php $count++ ?>
 						@endforeach
 					@endif
 				</div>

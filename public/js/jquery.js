@@ -81,7 +81,9 @@ $(function(){
 	$('div.league-teams').droppable({
 		drop:function(event, ui) {
 			var team_id = ui.draggable.find('input.team-value').val();
-			ui.draggable.detach().appendTo($(this)).find('input.team-value').attr('name', 'league_teams[' + $(this).attr('data-league-id') + '][]');
+			ui.draggable.detach().appendTo($(this));
+			//ui.draggable.detach().appendTo($(this)).find('input.team-value').attr('name', 'league_teams[' + $(this).attr('data-league-id') + '][]');
+			refreshOrder($(this), $(this).attr('data-league-id'));
 		}
 	});
 
@@ -246,6 +248,17 @@ function resizeWidth(objects) {
 	}
 	$(objects).width(col_width);
 	//return false;
+}
+
+function refreshOrder(container, league_id) {
+	var count = 1;
+	
+	$(container).find('input.team-value').each(function() {
+		$(this).attr('name', 'league_teams[' + league_id + '][' + count + ']');
+		count ++;
+	});
+
+
 }
 
 function sortTeams() {
