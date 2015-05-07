@@ -148,17 +148,26 @@ class GameDay extends Model {
 				// if we have an odd number of teams add a 'bye' team
 				if (count($teams)%2 != 0){
 					array_push($teams,"1");
+					//array_unshift($teams, "1");
 				}
+				$positions = $teams;
 				$away = array_splice($teams,(count($teams)/2));
 				$home = $teams;
 				for ($i=0; $i < count($home)+count($away)-1; $i++){
 					for ($j=0; $j<count($home); $j++){
+
+						if ($home[$j] == 1 ) {
+							$rounds[$i]['sort'] = array_search($away[$j], $positions);
+						} else if ($away[$j] == 1 ) {
+							$rounds[$i]['sort'] = array_search($home[$j], $positions);
+						}
+
 						if ($home[$j] == 1) {
-							$rounds[$i][$j]["home"]=$away[$j];
-							$rounds[$i][$j]["away"]=$home[$j];
+							$rounds[$i][$j]["home"] = $away[$j];
+							$rounds[$i][$j]["away"] = $home[$j];
 						} else {
-							$rounds[$i][$j]["home"]=$home[$j];
-							$rounds[$i][$j]["away"]=$away[$j];
+							$rounds[$i][$j]["home"] = $home[$j];
+							$rounds[$i][$j]["away"] = $away[$j];
 						}
 					}
 					if(count($home)+count($away)-1 > 2){
@@ -167,7 +176,11 @@ class GameDay extends Model {
 					}
 				}
 
-				
+
+				usort($rounds, function($a, $b) {
+					return $a['sort'] - $b['sort'];
+				});
+
 				$clear_rounds = Game::where('game_day_id', $this->id)
                                                                 ->where('round', '>', count($rounds))
                                                                 ->where('league_id', $league->id)
@@ -188,13 +201,15 @@ class GameDay extends Model {
 								->where('league_id', $league->id)
 								->delete();
 						foreach ($games as $game_number => $game_teams) {
-							$game = new Game;
-							$game->game_day_id = $this->id;
-							$game->league_id = $league->id;
-							$game->home_team_id = $game_teams['home'];
-							$game->away_team_id = $game_teams['away'];
-							$game->round = $round_id + 1;
-							$game->save();
+							if (is_array($game_teams)) {
+								$game = new Game;
+								$game->game_day_id = $this->id;
+								$game->league_id = $league->id;
+								$game->home_team_id = $game_teams['home'];
+								$game->away_team_id = $game_teams['away'];
+								$game->round = $round_id + 1;
+								$game->save();
+							}
 						}
 					}
 				} 
