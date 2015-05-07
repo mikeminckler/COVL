@@ -160,6 +160,8 @@ class GameDay extends Model {
 							$rounds[$i]['sort'] = array_search($away[$j], $positions);
 						} else if ($away[$j] == 1 ) {
 							$rounds[$i]['sort'] = array_search($home[$j], $positions);
+						} else {
+							$rounds[$i]['sort'] = $i;
 						}
 
 						if ($home[$j] == 1) {
