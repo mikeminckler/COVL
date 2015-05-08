@@ -203,29 +203,31 @@ class League extends Model {
 		$return .= '</div>';
 		foreach ($standings as $team_id => $team_info) {
 			$team = Team::find($team_id);
-			$return .= '<div class="row">';
-			$return .= '<div class="column" data-column="1">'.$place.'</div>';
-			$return .= '<div class="column" data-column="2">'.$team->team_name.'</div>';
-			$return .= '<div class="column" data-column="3">'.$team_info['total'].'</div>';
-			$return .= '<div class="column" data-column="3">';
-			if ($team_info['game_sets'] > 0) {
-				$return .= '+';
-			}
-			$return .= $team_info['game_sets'].'</div>';
-			$return .= '<div class="column" data-column="3">';
-			if ($team_info['points'] > 0) {
-				$return .= '+';
-			}
-			$return .= $team_info['points'].'</div>';
-
-			if ($show_weeks) {
-				foreach ($team_info['weeks'] as $game_day_id => $game_day_points) {
-					$return .= '<div class="column" style="width: 50px">'.$game_day_points.'</div>';
+			if ($team->team_name != 'Bye') {
+				$return .= '<div class="row">';
+				$return .= '<div class="column" data-column="1">'.$place.'</div>';
+				$return .= '<div class="column" data-column="2">'.$team->team_name.'</div>';
+				$return .= '<div class="column" data-column="3">'.$team_info['total'].'</div>';
+				$return .= '<div class="column" data-column="3">';
+				if ($team_info['game_sets'] > 0) {
+					$return .= '+';
 				}
-			}
+				$return .= $team_info['game_sets'].'</div>';
+				$return .= '<div class="column" data-column="3">';
+				if ($team_info['points'] > 0) {
+					$return .= '+';
+				}
+				$return .= $team_info['points'].'</div>';
 
-			$return .= '</div>';
-			$place ++;
+				if ($show_weeks) {
+					foreach ($team_info['weeks'] as $game_day_id => $game_day_points) {
+						$return .= '<div class="column" style="width: 50px">'.$game_day_points.'</div>';
+					}
+				}
+
+				$return .= '</div>';
+				$place ++;
+			}
 		}
 
 		return $return;
