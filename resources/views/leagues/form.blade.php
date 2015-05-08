@@ -17,6 +17,17 @@
         </div>
 
 	<div class="input-block">
+                <div class="label">
+			{!! Form::label('minimum_points', 'Minimum Points') !!}
+		</div>
+                <div class="input">
+			{!! Form::text('minimum_points', null, ['class' => 'text-input']) !!}
+                </div>
+        </div>
+
+
+
+	<div class="input-block">
 		<div class="submit">
 			@if (isset($league))	
 				{!! Form::submit('Update League') !!}

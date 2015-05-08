@@ -33,7 +33,65 @@ class Game extends Model {
 		return $this->hasMany('COVL\GameSet')->where('hidden', '0');
 	}
 
-	public function winner() {
+	public function league() {
+		return $this->belongsTo('COVL\League');
+	}
+
+	public function team_points($team) {
+
+		$points = 0;
+		if ($this->home_team_id == $team->id) {
+			foreach ($this->gameSets as $game_set) {
+				$points += count($game_set->home_points);
+			}
+		} else {
+			foreach ($this->gameSets as $game_set) {
+				$points += count($game_set->away_points);
+			}
+		}
+		return $points;
+
+	}
+
+	public function team_game_sets($team) {
+
+		$home_game_sets = 0;
+		$away_game_sets = 0;
+		
+		foreach ($this->gameSets as $game_set) {
+
+			$home_points = count($game_set->home_points);
+			$away_points = count($game_set->away_points);
+
+			$min_score_reached = false;
+			if ($this->league->minimum_points > 0) {
+				if ((count($game_set->home_points) + count($game_set->away_points)) >= $this->league->minimum_points) {
+					$min_score_reached = true;
+				}
+			} else {
+				$min_score_reached = true;
+			}
+
+			if ($min_score_reached) {
+				if ($home_points > $away_points) {
+					$home_game_sets ++;
+				} else if ($away_points > $home_points) {
+					$away_game_sets ++;
+				}
+			}
+		}
+
+
+		if ($this->home_team_id == $team->id) {
+			return $home_game_sets;
+		} else {
+			return $away_game_sets;
+		}
+
+	}
+
+
+	public function results() {
 
 		$home = array();
 		$away = array();
@@ -45,10 +103,21 @@ class Game extends Model {
 			$home_points = count($game_set->home_points);
 			$away_points = count($game_set->away_points);
 
-			if ($home_points > $away_points) {
-				$home['sets'] ++;
-			} else if ($away_points > $home_points) {
-				$away['sets'] ++;
+			$min_score_reached = false;
+			if ($this->league->minimum_points > 0) {
+				if ((count($game_set->home_points) + count($game_set->away_points)) >= $this->league->minimum_points) {
+					$min_score_reached = true;
+				}
+			} else {
+				$min_score_reached = true;
+			}
+
+			if ($min_score_reached) {
+				if ($home_points > $away_points) {
+					$home['sets'] ++;
+				} else if ($away_points > $home_points) {
+					$away['sets'] ++;
+				}
 			}
 
 		}
@@ -58,6 +127,9 @@ class Game extends Model {
 		if ($home['sets'] > $away['sets']) {
 			$return[$this->home_team->id] = $home['sets'];
 		} else if ($home['sets'] < $away['sets']) {
+			$return[$this->away_team->id] = $away['sets'];
+		} else {
+			$return[$this->home_team->id] = $home['sets'];
 			$return[$this->away_team->id] = $away['sets'];
 		}
 

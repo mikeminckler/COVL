@@ -17,6 +17,7 @@ class League extends Model {
 		}
 
 		$league->league_name = $input['league_name'];
+		$league->minimum_points = $input['minimum_points'];
 		$league->save();
 
 		return $league;
@@ -66,14 +67,20 @@ class League extends Model {
 
 				if (!array_key_exists($home_team->id, $standings)) {
 					$standings[$home_team->id] = array();
+					$standings[$home_team->id]['team_id'] = $home_team->id;
 					$standings[$home_team->id]['total'] = 0;
 					$standings[$home_team->id]['weeks'] = array();
+					$standings[$home_team->id]['game_sets'] = 0;
+					$standings[$home_team->id]['points'] = 0;
 				}
 
 				if (!array_key_exists($away_team->id, $standings)) {
 					$standings[$away_team->id] = array();
+					$standings[$away_team->id]['team_id'] = $away_team->id;
 					$standings[$away_team->id]['total'] = 0;
 					$standings[$away_team->id]['weeks'] = array();
+					$standings[$away_team->id]['game_sets'] = 0;
+					$standings[$away_team->id]['points'] = 0;
 				}
 
 				if (!array_key_exists($game_day->id, $standings[$home_team->id]['weeks'])) {
@@ -87,16 +94,77 @@ class League extends Model {
 					}
 				}
 
-				$winner = $game->winner();
+				$results = $game->results();
 
-				foreach ($winner as $team_id => $points) {
+				foreach ($results as $team_id => $points) {
 					$standings[$team_id]['total'] = $standings[$team_id]['total'] + $points;
 					$standings[$team_id]['weeks'][$game_day->id] = $standings[$team_id]['weeks'][$game_day->id] + $points;
 				}
+
+				$standings[$home_team->id]['game_sets'] = $standings[$home_team->id]['game_sets'] + ($game->team_game_sets($home_team) - $game->team_game_sets($away_team));
+				$standings[$away_team->id]['game_sets'] = $standings[$away_team->id]['game_sets'] + ($game->team_game_sets($away_team) - $game->team_game_sets($home_team));
+
+				$standings[$home_team->id]['points'] = $standings[$home_team->id]['points'] + ($game->team_points($home_team) - $game->team_points($away_team));
+				$standings[$away_team->id]['points'] = $standings[$away_team->id]['points'] + ($game->team_points($away_team) - $game->team_points($home_team));
+
 			}
                 }
 
-		arsort($standings);
+		//arsort($standings);
+
+		uasort($standings, function($a, $b) {
+
+			if ($a["total"] == $b["total"]) {
+				$games = Game::where(function($query) use($a, $b) {
+					$query->where('home_team_id', $a['team_id'])
+						->where('away_team_id', $b['team_id']);
+				})->orWhere(function($query) use ($a, $b) {
+					$query->where('away_team_id', $a['team_id'])
+                                                ->where('home_team_id', $b['team_id']);
+				})->get();
+
+				$a_team = Team::find($a['team_id']);
+				$b_team = Team::find($b['team_id']);
+
+				$a_game_sets = 0;
+				$b_game_sets = 0;
+				foreach ($games as $game) {
+					$a_game_sets += $game->team_game_sets($a_team);
+					$b_game_sets += $game->team_game_sets($b_team);
+				}
+
+				if ($a_game_sets == $b_game_sets) {
+
+					$a_points = 0;
+					$b_points = 0;
+					foreach ($games as $game) {
+						$a_points += $game->team_points($a_team);
+						$b_points += $game->team_points($b_team);
+					}
+
+
+					if ($a_points == $b_points) {
+						return 0;
+					} else if ($a_points > $b_points) {
+						return -1;
+					} else {
+						return 1;
+					}
+
+
+				} else if ($a_game_sets > $b_game_sets) {
+					return -1;
+				} else {
+					return 1;
+				}
+
+
+			} else if ($a["total"] > $b["total"]) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
 
 		return $standings;
 
@@ -123,6 +191,8 @@ class League extends Model {
 		$return .= '<div class="column" data-column="1">Place</div>';
 		$return .= '<div class="column" data-column="2">Team</div>';
 		$return .= '<div class="column" data-column="3">Total</div>';
+		$return .= '<div class="column" data-column="3">Sets +/-</div>';
+		$return .= '<div class="column" data-column="3">Points +/-</div>';
 
 		if ($show_weeks) {
 			foreach ($game_day_ids as $game_day_id) {
@@ -137,6 +207,16 @@ class League extends Model {
 			$return .= '<div class="column" data-column="1">'.$place.'</div>';
 			$return .= '<div class="column" data-column="2">'.$team->team_name.'</div>';
 			$return .= '<div class="column" data-column="3">'.$team_info['total'].'</div>';
+			$return .= '<div class="column" data-column="3">';
+			if ($team_info['game_sets'] > 0) {
+				$return .= '+';
+			}
+			$return .= $team_info['game_sets'].'</div>';
+			$return .= '<div class="column" data-column="3">';
+			if ($team_info['points'] > 0) {
+				$return .= '+';
+			}
+			$return .= $team_info['points'].'</div>';
 
 			if ($show_weeks) {
 				foreach ($team_info['weeks'] as $game_day_id => $game_day_points) {
