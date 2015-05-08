@@ -37,7 +37,7 @@
 		</div>
                 <div class="input">
 			@if (isset($game_day))
-				{!! Form::text('start_time', $game_day->start_time->format('Y-m-d'), ['class' => 'text-input datetimepicker']) !!}
+				{!! Form::text('start_time', $game_day->start_time->format('Y-m-d H:i'), ['class' => 'text-input datetimepicker']) !!}
 			@else
 				{!! Form::text('start_time', null, ['class' => 'text-input datetimepicker']) !!}
 			@endif
