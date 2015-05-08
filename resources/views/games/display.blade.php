@@ -3,6 +3,7 @@
 		@if ($game->away_team->id != 1 && !isset($ro))
 			<div class="add-set"></div>
 		@endif
+		<span class="seed">{{ $game_day->seed($game->home_team, $league) }}</span>
 		{{ $game->home_team->team_name }} 
 		@if ($game->away_team->id == 1)
 			-
@@ -10,6 +11,9 @@
 			v 
 		@endif
 		{{ $game->away_team->team_name }}
+		@if ($game->away_team->id != 1)
+			<span class="seed">{{ $game_day->seed($game->away_team, $league) }}</span>
+		@endif
 	</div>
 
 	<div class="game-sets">

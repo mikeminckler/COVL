@@ -332,3 +332,10 @@ input.game-set-score {
 div.game-teams {
 	text-align: center;
 }
+
+span.seed {
+	font-size: 12px;
+	font-weight: 700;
+        color: #44aeff;
+	padding: 5px;
+}

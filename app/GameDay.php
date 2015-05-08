@@ -124,6 +124,24 @@ class GameDay extends Model {
 		return $this->start_time->addMinutes(($round_length * $round) - $round_length)->format('H:i');
 	}
 
+	public function seed($team, $league) {
+
+		$teams = $this->teams($league)->get();
+		$position = 1;
+
+		foreach ($teams as $position_team) {
+
+			if ($position_team->id == $team->id) {
+				return $position;
+			}
+			$position ++;
+
+		}
+		
+
+	}
+
+
 	public function schedule() {
 
 		//$games = $this->games()->delete();
@@ -142,12 +160,14 @@ class GameDay extends Model {
 			$teams = $team_ids;
 
 			$rounds = array();
+			$bye = false;
 
 			if (count($teams) > 0) {
 
 				// if we have an odd number of teams add a 'bye' team
 				if (count($teams)%2 != 0){
 					array_push($teams,"1");
+					$bye = true;
 					//array_unshift($teams, "1");
 				}
 				$positions = $teams;
@@ -156,10 +176,12 @@ class GameDay extends Model {
 				for ($i=0; $i < count($home)+count($away)-1; $i++){
 					for ($j=0; $j<count($home); $j++){
 
-						if ($home[$j] == 1 ) {
-							$rounds[$i]['sort'] = array_search($away[$j], $positions);
-						} else if ($away[$j] == 1 ) {
-							$rounds[$i]['sort'] = array_search($home[$j], $positions);
+						if ($bye == true) {
+							if ($home[$j] == 1 ) {
+								$rounds[$i]['sort'] = array_search($away[$j], $positions);
+							} else if ($away[$j] == 1 ) {
+								$rounds[$i]['sort'] = array_search($home[$j], $positions);
+							}
 						} else {
 							$rounds[$i]['sort'] = $i;
 						}
@@ -182,6 +204,8 @@ class GameDay extends Model {
 				usort($rounds, function($a, $b) {
 					return $a['sort'] - $b['sort'];
 				});
+
+				//dd($rounds);
 
 				$clear_rounds = Game::where('game_day_id', $this->id)
                                                                 ->where('round', '>', count($rounds))
