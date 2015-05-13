@@ -89,8 +89,10 @@ class GameDaysController extends Controller {
 
 	public function games($id) {
 		$game_day = $this->game_day->find($id);
+		$hide_teams = null;
+		$best_of = 3;
                 if ($game_day instanceof GameDay) {
-			return view('game_days.games', compact('game_day'));
+			return view('game_days.games', compact('game_day', 'hide_teams', 'best_of'));
 		} else {
 			return redirect()->back();
 		}
@@ -170,11 +172,26 @@ class GameDaysController extends Controller {
 
 	public function results($id) {
 		$game_day = $this->game_day->find($id);
+		$hide_teams = null;
+                $best_of = 3;
                 if ($game_day instanceof GameDay) {
-			return view('game_days.results', compact('game_day'));
+			return view('game_days.results', compact('game_day', 'hide_teams', 'best_of'));
                 } else {
                         return redirect()->back();
                 }
 	}
+
+
+	public function printSchedule($id) {
+		$game_day = $this->game_day->find($id);
+
+		if ($game_day instanceof GameDay) {
+                        return view('game_days.print', compact('game_day'));
+                } else {
+                        return redirect()->back();
+                }
+
+	}
+
 
 }

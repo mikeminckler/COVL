@@ -58,9 +58,9 @@ class GameDay extends Model {
 
 	public function games($league = null, $round = null) {
 		if ($league instanceof League && $round > 0) {
-			return $this->hasMany('COVL\Game')->where('league_id', $league->id)->where('round', $round)->orderBy('away_team_id', 'desc');
+			return $this->hasMany('COVL\Game')->where('league_id', $league->id)->where('round', $round);
 		} elseif ($league instanceof League) {
-			return $this->hasMany('COVL\Game')->where('league_id', $league->id)->orderBy('away_team_id', 'desc');
+			return $this->hasMany('COVL\Game')->where('league_id', $league->id);
 		} else {
 			return $this->hasMany('COVL\Game');
 		}
@@ -226,6 +226,17 @@ class GameDay extends Model {
                                                                 ->where('round', ($round_id + 1))
 								->where('league_id', $league->id)
 								->delete();
+
+						foreach ($games as $game_number => $game_teams) {
+							if ($game_teams['away'] == 1) {
+								$bye_game = $games[$game_number];
+								unset($games[$game_number]);
+								$games[] = $bye_game;
+							}
+						}
+
+						//dd($games);
+
 						foreach ($games as $game_number => $game_teams) {
 							if (is_array($game_teams)) {
 								$game = new Game;

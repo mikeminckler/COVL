@@ -1,0 +1,13 @@
+body {
+}
+
+h2 {
+	font-size: 40px;
+	margin-left: 100px;
+}
+
+span.seed {
+	font-size: 18px;
+	color: #000;
+	padding: 0px 25px;
+}

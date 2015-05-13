@@ -18,8 +18,11 @@ class ExternalController extends Controller {
 	public function gameDayResults($id) {
 
 		$game_day = $this->game_day->find($id);
+		$hide_teams = null;
+		$best_of = 3;
+		
                 if ($game_day instanceof GameDay) {
-                        return view('external.results', compact('game_day'));
+                        return view('external.results', compact('game_day', 'hide_teams', 'best_of'));
                 } else {
                         return redirect()->back();
                 }

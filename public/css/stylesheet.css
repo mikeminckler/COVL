@@ -339,3 +339,15 @@ span.seed {
         color: #44aeff;
 	padding: 5px;
 }
+
+div.game-set-blank {
+	margin-bottom: 10px;
+}
+
+div.game-set-blank-home, div.game-set-blank-away {
+	display: inline-block;
+	width: 150px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	line-height: 40px;
+}

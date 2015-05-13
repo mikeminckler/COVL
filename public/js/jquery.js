@@ -67,9 +67,9 @@ $(function(){
 
 
 	$(document).on('keyup', 'input.team-filter', function() {
-		var search = $(this).val();
+		var search = $(this).val().toLowerCase();
 		$('div.team-name').each(function() {
-			var team_name = $(this).attr('data-team-name');
+			var team_name = $(this).attr('data-team-name').toLowerCase();;
 			if (team_name.indexOf(search) == -1) {
 				$(this).addClass('hidden');
 			} else {

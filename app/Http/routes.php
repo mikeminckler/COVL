@@ -60,6 +60,7 @@ Route::get('game-days/games/{id}', ['as' => 'game-days.games', 'uses' => 'GameDa
 Route::post('game-days/games/{id}', ['as' => 'game-days.games.store', 'uses' => 'GameDaysController@storeGames'])->where('id', '\d+');
 Route::get('game-days/schedule/{id}', ['as' => 'game-days.schedule', 'uses' => 'GameDaysController@schedule'])->where('id', '\d+');
 Route::get('game-days/results/{id}', ['as' => 'game-days.results', 'uses' => 'GameDaysController@results'])->where('id', '\d+');
+Route::get('game-days/print-schedule/{id}', ['as' => 'game-days.print-schedule', 'uses' => 'GameDaysController@printSchedule'])->where('id', '\d+');
 
 Route::get('external/game-days/results/{id}', ['as' => 'external.game-days.results', 'uses' => 'ExternalController@gameDayResults'])->where('id', '\d+');
 

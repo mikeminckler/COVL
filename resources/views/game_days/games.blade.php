@@ -21,7 +21,6 @@
 	<?php $court_count = 1 ?>
 	@foreach ($game_day->season->leagues as $league)
 
-
 		<h2>{{ $league->league_name }}</h2>
 
 		@include ('game_days.rounds')
