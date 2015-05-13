@@ -6,6 +6,11 @@
 	<title>COVL</title>
 
 	<link href="{{ asset('/css/stylesheet.css') }}" rel="stylesheet">
+
+	@if (!Auth::check())
+		<link href="{{ asset('/css/external_stylesheet.css') }}" rel="stylesheet">
+	@endif
+
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">

@@ -47,7 +47,7 @@ class League extends Model {
 	}
 
 
-	public function standings($game_days) {
+	public function standings($game_days, $league) {
 		
 		$total_games = new Collection;
 		$standings = array();
@@ -57,7 +57,7 @@ class League extends Model {
 		}
 
                 foreach ($game_days as $game_day) {
-			$games = $game_day->games()->where('league_id', $this->id)->get();
+			$games = $game_day->games()->where('league_id', $league->id)->get();
                         $total_games = $total_games->merge($games);
 
 			foreach ($games as $game) {
@@ -180,7 +180,7 @@ class League extends Model {
 		}
 
 
-		$standings = $this->standings($game_days);
+		$standings = $this->standings($game_days, $this);
 		$game_day_ids = array();
 		foreach ($game_days as $game_day) {
 			$game_day_ids[] = $game_day->id;

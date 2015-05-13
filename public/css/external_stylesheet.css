@@ -1,0 +1,14 @@
+body {
+	background-color: transparent;
+	padding: 0px;
+	margin: 0px;
+}
+
+div.game {
+	background-color: transparent;
+	border: 0;
+}
+
+div.round div.column {
+	max-width: 225px;
+}
