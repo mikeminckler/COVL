@@ -90,7 +90,7 @@ class GameDaysController extends Controller {
 	public function games($id) {
 		$game_day = $this->game_day->find($id);
 		$hide_teams = null;
-		$best_of = 3;
+		$best_of = null;
                 if ($game_day instanceof GameDay) {
 			return view('game_days.games', compact('game_day', 'hide_teams', 'best_of'));
 		} else {
