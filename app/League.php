@@ -112,15 +112,31 @@ class League extends Model {
 
 		//arsort($standings);
 
+
 		uasort($standings, function($a, $b) {
+			if ($a["points"] == $b["points"]) {
+				return 0;
+			} else if ($a["points"] > $b["points"]) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
+
+
+		//dd($standings);
+
+		uasort($standings, function($a, $b) use ($game_day_ids) {
 
 			if ($a["total"] == $b["total"]) {
-				$games = Game::where(function($query) use($a, $b) {
+				$games = Game::where(function($query) use($a, $b, $game_day_ids) {
 					$query->where('home_team_id', $a['team_id'])
-						->where('away_team_id', $b['team_id']);
-				})->orWhere(function($query) use ($a, $b) {
+						->where('away_team_id', $b['team_id'])
+						->whereIn('game_day_id', $game_day_ids);
+				})->orWhere(function($query) use ($a, $b, $game_day_ids) {
 					$query->where('away_team_id', $a['team_id'])
-                                                ->where('home_team_id', $b['team_id']);
+                                                ->where('home_team_id', $b['team_id'])
+						->whereIn('game_day_id', $game_day_ids);
 				})->get();
 
 				$a_team = Team::find($a['team_id']);
