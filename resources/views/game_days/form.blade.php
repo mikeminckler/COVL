@@ -58,6 +58,22 @@
         </div>
 
 
+	<div class="input-block">
+                <div class="label">
+                        {!! Form::label('exhibition', 'Is Exhibition') !!}
+                </div>
+                <div class="input">
+                        @if (isset($game_day))
+				@if ($game_day->exhibition)
+					{!! Form::checkbox('exhibition', 'true', true) !!}
+				@else
+					{!! Form::checkbox('exhibition', 'true') !!}
+				@endif
+                        @else
+				{!! Form::checkbox('exhibition', 'true') !!}
+                        @endif
+                </div>
+        </div>
 
 
 	<div class="input-block">

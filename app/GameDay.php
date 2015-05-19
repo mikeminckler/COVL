@@ -28,6 +28,12 @@ class GameDay extends Model {
 		$game_day->start_time = Carbon::parse($input['start_time']);
 		$game_day->end_time = $end_time;
 		$game_day->season_id = $input['season_id'];
+
+		if (array_key_exists('exhibition', $input)) {
+			$game_day->exhibition = true;
+		} else {
+			$game_day->exhibition = false;
+		}
 		$game_day->save();
 
 		return $game_day;

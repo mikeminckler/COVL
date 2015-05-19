@@ -9,7 +9,7 @@
 	<h2>{{ $league->league_name }}</h2>
 	<div class="section">
 
-		{!! $league->displayStandings($league->gameDays($season)->get()) !!}
+		{!! $league->displayStandings($league->gameDays($season)->where('exhibition', false)->get()) !!}
 
 	</div>
 
