@@ -7,7 +7,13 @@ h2 {
 }
 
 span.seed {
+	/*
 	font-size: 18px;
-	color: #000;
 	padding: 0px 25px;
+	*/
+	color: #000;
+}
+
+div.add-set {
+	display: none;
 }
