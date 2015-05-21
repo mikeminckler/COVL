@@ -81,6 +81,7 @@ class GameDaysController extends Controller {
                 if ($game_day instanceof GameDay) {
 			$game_day->storeTeams($request->all());
 			//return view('game_days.teams', compact('game_day'));
+			$game_day->schedule();
 			return redirect()->route('game-days.teams', ['id' => $game_day->id]);
 		} else {
 			return redirect()->back();
