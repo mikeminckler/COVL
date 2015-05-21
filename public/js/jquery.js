@@ -121,9 +121,9 @@ $(function(){
 
 	$(document).on('keydown', 'input.away-team', function(e) {
 		var code = e.keyCode || e.which;
-		e.preventDefault();
 		//console.log(code);
                 if (code == 9) {
+			e.preventDefault();
 			$(this).parents('div.game').find('div.add-set').trigger('click');
 		}
 	});
