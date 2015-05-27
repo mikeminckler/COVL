@@ -10,7 +10,7 @@
 
 	@if (count($game_day->games) > 0)
 
-		<?php $court_count = 1 ?>
+		<?php $court_count = 0 ?>
 		@foreach ($game_day->season->leagues as $league)
 
 
@@ -19,6 +19,10 @@
 			@include ('game_days.rounds', ['hide_teams' => null, 'best_of' => 3])
 
 			<div style="clear: both; page-break-after: always;"></div>
+
+			<?php 
+				$court_count += floor(count($game_day->teams($league)->get()) / 2);
+			?>
 
 		@endforeach
 
