@@ -349,5 +349,19 @@ div.game-set-blank-home, div.game-set-blank-away {
 	width: 150px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	line-height: 40px;
+	line-height: 45px;
+}
+
+div.team {
+	display: inline-block;
+}
+
+div.game-day-print div.team {
+	display: block;
+	font-size: 22px;
+}
+
+div.game-day-print span.seed {
+	color: #000;
+	font-size: 18px;
 }

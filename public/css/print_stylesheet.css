@@ -6,14 +6,10 @@ h2 {
 	margin-left: 100px;
 }
 
-span.seed {
-	/*
-	font-size: 18px;
-	padding: 0px 25px;
-	*/
-	color: #000;
+div.add-set {
+	display: none;
 }
 
-div.add-set {
+span.versus {
 	display: none;
 }
