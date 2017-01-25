@@ -1,6 +1,6 @@
-<?php namespace COVL\Http\Requests;
+<?php namespace App\Http\Requests;
 
-use COVL\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class StoreLeagueRequest extends Request {
 

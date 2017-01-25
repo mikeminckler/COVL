@@ -1,4 +1,4 @@
-<?php namespace COVL;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,11 +30,11 @@ class Game extends Model {
 	}
 
 	public function gameSets() {
-		return $this->hasMany('COVL\GameSet')->where('hidden', '0');
+		return $this->hasMany('App\GameSet')->where('hidden', '0');
 	}
 
 	public function league() {
-		return $this->belongsTo('COVL\League');
+		return $this->belongsTo('App\League');
 	}
 
 	public function team_points($team) {

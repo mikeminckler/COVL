@@ -1,16 +1,16 @@
-<?php namespace COVL\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-use COVL\Http\Requests;
-use COVL\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use COVL\GameDay;
-use COVL\GameSet;
-use COVL\Game;
-use COVL\Season;
-use COVL\Point;
-use COVL\Http\Requests\StoreGameDayRequest;
+use App\GameDay;
+use App\GameSet;
+use App\Game;
+use App\Season;
+use App\Point;
+use App\Http\Requests\StoreGameDayRequest;
 
 use Illuminate\Database\Eloquent\Collection;
 

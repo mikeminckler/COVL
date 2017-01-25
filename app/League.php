@@ -1,10 +1,10 @@
-<?php namespace COVL;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
-use COVL\GameDay;
-use COVL\Team;
+use App\GameDay;
+use App\Team;
 
 class League extends Model {
 
@@ -25,7 +25,7 @@ class League extends Model {
 	}
 
 	public function seasons() {
-		return $this->belongsToMany('COVL\Season');
+		return $this->belongsToMany('App\Season');
 	}
 
 	public function games($season) {
@@ -47,7 +47,7 @@ class League extends Model {
 	}
 
 
-	public function standings($game_days, $league) {
+	public function standings($game_days, League $league) {
 		
 		$total_games = new Collection;
 		$standings = array();
@@ -56,9 +56,9 @@ class League extends Model {
 			$game_day_ids[] = $game_day->id;
 		}
 
-                foreach ($game_days as $game_day) {
+        foreach ($game_days as $game_day) {
 			$games = $game_day->games()->where('league_id', $league->id)->get();
-                        $total_games = $total_games->merge($games);
+            $total_games = $total_games->merge($games);
 
 			foreach ($games as $game) {
 				$home_team = $game->home_team;
@@ -250,4 +250,24 @@ class League extends Model {
 
 	}
 
+    public function displayStandingsByWeek($game_days, $show_weeks = true)
+    {
+
+		if ($game_days instanceof GameDay) {
+			$game_day = $game_days;
+			$game_days = new Collection;
+			$game_days = $game_days->add($game_day);
+		}
+
+		$standings = $this->standings($game_days, $this);
+        dd($standings);
+
+		$game_day_ids = array();
+		foreach ($game_days as $game_day) {
+			$game_day_ids[] = $game_day->id;
+		}
+
+
+
+    }
 }

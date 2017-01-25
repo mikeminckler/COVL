@@ -1,4 +1,4 @@
-<?php namespace COVL;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,15 +37,15 @@ class Season extends Model {
 	}
 
 	public function gameDays() {
-		return $this->hasMany('COVL\GameDay');
+		return $this->hasMany('App\GameDay');
 	}
 
 	public function leagues() {
-		return $this->belongsToMany('COVL\League');
+		return $this->belongsToMany('App\League');
 	}
 
 	public function teams() {
-		return $this->belongsToMany('COVL\Team')->orderBy('team_name');
+		return $this->belongsToMany('App\Team')->orderBy('team_name');
 	}
 
 }

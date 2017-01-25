@@ -1,13 +1,13 @@
-<?php namespace COVL;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 use Carbon\Carbon;
 
-use COVL\League;
-use COVL\Game;
-use COVL\Team;
+use App\League;
+use App\Game;
+use App\Team;
 
 class GameDay extends Model {
 
@@ -42,7 +42,7 @@ class GameDay extends Model {
 
 
 	public function season() {
-		return $this->belongsTo('COVL\Season');
+		return $this->belongsTo('App\Season');
 	}
 
 	public function getLinkedNameAttribute() {
@@ -56,19 +56,19 @@ class GameDay extends Model {
 
 	public function teams($league = null) {
 		if ($league instanceof League) {
-			return $this->belongsToMany('COVL\Team')->wherePivot('league_id', $league->id);
+			return $this->belongsToMany('App\Team')->wherePivot('league_id', $league->id);
 		} else {
-			return $this->belongsToMany('COVL\Team');
+			return $this->belongsToMany('App\Team');
 		}
 	}
 
 	public function games($league = null, $round = null) {
 		if ($league instanceof League && $round > 0) {
-			return $this->hasMany('COVL\Game')->where('league_id', $league->id)->where('round', $round);
+			return $this->hasMany('App\Game')->where('league_id', $league->id)->where('round', $round);
 		} elseif ($league instanceof League) {
-			return $this->hasMany('COVL\Game')->where('league_id', $league->id);
+			return $this->hasMany('App\Game')->where('league_id', $league->id);
 		} else {
-			return $this->hasMany('COVL\Game');
+			return $this->hasMany('App\Game');
 		}
 	}
 
@@ -122,7 +122,7 @@ class GameDay extends Model {
 	}
 
 	public function rounds($league) {
-		return count($this->hasMany('COVL\Game')->where('league_id', $league->id)->groupBy('round')->get());
+		return count($this->hasMany('App\Game')->where('league_id', $league->id)->groupBy('round')->get());
 	}
 
 	public function roundStartTime($league, $round) {

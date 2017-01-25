@@ -1,4 +1,4 @@
-<?php namespace COVL\Events;
+<?php namespace App\Events;
 
 abstract class Event {
 

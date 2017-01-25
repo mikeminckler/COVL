@@ -1,13 +1,13 @@
-<?php namespace COVL\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-use COVL\Http\Requests;
-use COVL\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use COVL\League;
-use COVL\Season;
-use COVL\Http\Requests\StoreLeagueRequest;
+use App\League;
+use App\Season;
+use App\Http\Requests\StoreLeagueRequest;
 
 class LeaguesController extends Controller {
 

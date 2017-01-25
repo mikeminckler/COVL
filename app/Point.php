@@ -1,4 +1,4 @@
-<?php namespace COVL;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
