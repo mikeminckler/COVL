@@ -6,7 +6,10 @@
 <div class="section form login">
 
 	<h1>Login</h1>
-	{!! Form::open() !!}
+
+    <form method="POST" action="{{ route('login') }}">
+    {{ csrf_field() }}
+
 	<div class="input-block">
 		<div class="label">Email</div>
 		<div class="input">
@@ -38,7 +41,8 @@
 			<button type="submit" class="button">Login</button>
 		</div>
 	</div>
-	{!! Form::close() !!}
+
+    </form>
 
 	<div class="row">
 		<a class="" href="{{ url('/password/email') }}">Forgot Your Password?</a>

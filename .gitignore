@@ -1,3 +1,9 @@
 /vendor
 /node_modules
 .env
+.DS_Store
+/public/js/app*
+/public/css/app*
+/public/build/
+/public/mix-manifest.json
+npm-debug*
