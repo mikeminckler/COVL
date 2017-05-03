@@ -253,6 +253,9 @@ class League extends Model {
     public function displayStandingsByWeek($game_days, $show_weeks = true)
     {
 
+        return $this->displayStandings($game_days, $show_weeks);
+        // Need to rank each team per week and then average out the standings
+
 		if ($game_days instanceof GameDay) {
 			$game_day = $game_days;
 			$game_days = new Collection;
@@ -260,13 +263,13 @@ class League extends Model {
 		}
 
 		$standings = $this->standings($game_days, $this);
-        dd($standings);
 
 		$game_day_ids = array();
 		foreach ($game_days as $game_day) {
 			$game_day_ids[] = $game_day->id;
 		}
 
+        return view()->make('leagues.standings_weekly', compact('standings'))->render();
 
 
     }

@@ -6,7 +6,7 @@
 			@for ($i = 0; $i <= count($game_day->games($league, $i)->get()); $i++)
 				@if ($i > 0)
 
-					@if ($i == count($game_day->games($league, $i)->get()) && COVL\GameDay::hasBye($game_day->games($league)->get()))
+					@if ($i == count($game_day->games($league, $i)->get()) && App\GameDay::hasBye($game_day->games($league)->get()))
 						<div class="column" data-column="{{ $i + 1 }}">BYE</div>
 					@else
 						<div class="column court-name" data-column="{{ $i + 1 }}">Court {{ $court_count + $i}}</div>
