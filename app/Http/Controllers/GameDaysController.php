@@ -172,14 +172,17 @@ class GameDaysController extends Controller {
 	}
 
 	public function results($id) {
+
 		$game_day = $this->game_day->find($id);
 		$hide_teams = null;
-                $best_of = 3;
-                if ($game_day instanceof GameDay) {
-			return view('game_days.results', compact('game_day', 'hide_teams', 'best_of'));
-                } else {
-                        return redirect()->back();
-                }
+        $best_of = 3;
+
+        if ($game_day instanceof GameDay) {
+            return view('game_days.results', compact('game_day', 'hide_teams', 'best_of'));
+        } else {
+            return redirect()->back();
+        }
+
 	}
 
 
