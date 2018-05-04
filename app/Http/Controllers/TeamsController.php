@@ -22,7 +22,7 @@ class TeamsController extends Controller {
 	//
 	public function index(Request $request) 
 	{
-		$teams = $this->team->where('hidden', '0')->orderBy('team_name')->paginate(10);
+		$teams = $this->team->where('hidden', '0')->orderBy('team_name')->paginate(100);
 
 		if ($request->ajax()) {
 			$html = view('teams.list', compact('teams'))->render();

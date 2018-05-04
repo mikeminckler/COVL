@@ -29,7 +29,7 @@ class GameDaysController extends Controller {
 
 	public function index(Request $request) 
         {
-                $game_days = $this->game_day->where('hidden', '0')->paginate(20);
+                $game_days = $this->game_day->where('hidden', '0')->orderBy('id', 'desc')->paginate(20);
 
                 if ($request->ajax()) {
                         $html = view('game_days.list', compact('game_days'))->render();

@@ -25,7 +25,7 @@ class SeasonsController extends Controller {
 
 	public function index(Request $request) 
         {
-                $seasons = $this->season->where('hidden', '0')->paginate(2);
+                $seasons = $this->season->where('hidden', '0')->orderBy('season_name', 'desc')->paginate(10);
 
                 if ($request->ajax()) {
                         $html = view('seasons.list', compact('seasons'))->render();
