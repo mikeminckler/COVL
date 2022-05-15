@@ -1,8 +1,10 @@
-<?php namespace App\Http\Requests;
+<?php 
 
-use App\Http\Requests\Request;
+namespace App\Http\Requests;
 
-class StoreGameDayRequest extends Request {
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreGameDayRequest extends FormRequest {
 
 	/**
 	 * Determine if the user is authorized to make this request.

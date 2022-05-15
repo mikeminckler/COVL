@@ -1,17 +1,18 @@
 @include ('feedback')
 
-<div class="section form">
+<div class="mt-4 form">
 	@if (isset($game_day))
-		{!! Form::model($game_day) !!}
+        <form method="POST" action="{{ route('game-days.edit', ['id' => $game_day->id]) }}">
 	@else
-		{!! Form::open() !!}
+        <form method="POST" action="{{ route('game-days.create') }}">
 	@endif
 
+    @csrf
+
 	<div class="input-block">
-		<div class="label">
-			{!! Form::label('season_id', 'Season') !!}
-		</div>
+		<div class="label">Season</div>
 		<div class="input">
+
 			@if (isset($season))
 				{!! Form::text('season_id_search', $season->season_name, ['class' => 'text-input autocomplete', 'data-complete-url' => '/seasons/autocomplete-list']) !!}
 				{!! Form::hidden('season_id', $season->id, ['class' => 'autocomplete-value']) !!}
@@ -75,16 +76,11 @@
                 </div>
         </div>
 
-
 	<div class="input-block">
 		<div class="submit">
-			@if (isset($game_day))	
-				{!! Form::submit('Update Game Day') !!}
-			@else
-				{!! Form::submit('Create Game Day') !!}
-			@endif
+            <button>{{ isset($game_day) ? 'Update' : 'Create' }} Game Day</button>
 		</div>
 	</div>
 
-	{!! Form::close() !!}
+    </form>
 </div>

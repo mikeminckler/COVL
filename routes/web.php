@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,55 +14,59 @@
 |
 */
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TeamsController;
+use App\Http\Controllers\SeasonsController;
+use App\Http\Controllers\LeaguesController;
+use App\Http\Controllers\GameDaysController;
+use App\Http\Controllers\ExternalController;
+use App\Http\Controllers\GameSetsController;
+
 Auth::routes();
 
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('teams', ['as' => 'teams', 'uses' => 'TeamsController@index']);
-Route::get('teams/create', ['as' => 'teams.create', 'uses' => 'TeamsController@create']);
-Route::post('teams/create', ['as' => 'teams.store', 'uses' => 'TeamsController@store']);
-Route::get('teams/edit/{id}', ['as' => 'teams.edit', 'uses' => 'TeamsController@edit'])->where('id', '\d+');
-Route::post('teams/edit/{id}', ['as' => 'teams.update', 'uses' => 'TeamsController@store'])->where('id', '\d+');
+Route::get('teams', [TeamsController::class, 'index'])->name('teams');
+Route::get('teams/create', [TeamsController::class, 'create'])->name('teams.create');
+Route::post('teams/create', [TeamsController::class, 'store'])->name('teams.store');
+Route::get('teams/edit/{id}', [TeamsController::class, 'edit'])->name('teams.edit')->where('id', '\d+');
+Route::post('teams/edit/{id}', [TeamsController::class, 'store'])->name('teams.update')->where('id', '\d+');
 
-Route::get('seasons', ['as' => 'seasons', 'uses' => 'SeasonsController@index']);
-Route::get('seasons/create', ['as' => 'seasons.create', 'uses' => 'SeasonsController@create']);
-Route::post('seasons/create', ['as' => 'seasons.store', 'uses' => 'SeasonsController@store']);
-Route::get('seasons/edit/{id}', ['as' => 'seasons.edit', 'uses' => 'SeasonsController@edit'])->where('id', '\d+');
-Route::post('seasons/edit/{id}', ['as' => 'seasons.update', 'uses' => 'SeasonsController@store'])->where('id', '\d+');
-Route::get('seasons/autocomplete-list', ['as' => 'seasons.autocomplete-list', 'uses' => 'SeasonsController@autocompleteList']);
-Route::get('seasons/game-days', ['as' => 'seasons.game-days', 'uses' => 'SeasonsController@gameDays']);
-Route::get('seasons/leagues', ['as' => 'seasons.leagues', 'uses' => 'SeasonsController@leagues']);
-Route::post('seasons/leagues', ['as' => 'seasons.leagues.update', 'uses' => 'SeasonsController@storeLeagues']);
-Route::get('seasons/teams', ['as' => 'seasons.teams', 'uses' => 'SeasonsController@teams']);
-Route::post('seasons/teams', ['as' => 'seasons.teams.update', 'uses' => 'SeasonsController@storeTeams']);
-Route::get('seasons/standings', ['as' => 'seasons.standings', 'uses' => 'SeasonsController@standings']);
+Route::get('seasons', [SeasonsController::class, 'index'])->name('seasons');
+Route::get('seasons/create', [SeasonsController::class, 'create'])->name('seasons.create');
+Route::post('seasons/create', [SeasonsController::class, 'store'])->name('seasons.store');
+Route::get('seasons/edit/{id}', [SeasonsController::class, 'edit'])->name('seasons.edit')->where('id', '\d+');
+Route::post('seasons/edit/{id}', [SeasonsController::class, 'store'])->name('seasons.update')->where('id', '\d+');
+Route::get('seasons/autocomplete-list', [SeasonsController::class, 'autocompleteList'])->name('seasons.autocomplete-list');
+Route::get('seasons/game-days', [SeasonsController::class, 'gameDays'])->name('seasons.game-days');
+Route::get('seasons/leagues', [SeasonsController::class, 'leagues'])->name('seasons.leagues');
+Route::post('seasons/leagues', [SeasonsController::class, 'storeLeagues'])->name('seasons.leagues.update');
+Route::get('seasons/teams', [SeasonsController::class, 'teams'])->name('seasons.teams');
+Route::post('seasons/teams', [SeasonsController::class, 'storeTeams'])->name('seasons.teams.update');
+Route::get('seasons/standings', [SeasonsController::class, 'standings'])->name('seasons.standings');
 
+Route::get('leagues', [LeaguesController::class, 'index'])->name('leagues');
+Route::get('leagues/create', [LeaguesController::class, 'create'])->name('leagues.create');
+Route::post('leagues/create', [LeaguesController::class, 'store'])->name('leagues.store');
+Route::get('leagues/edit/{id}', [LeaguesController::class, 'edit'])->name('leagues.edit')->where('id', '\d+');
+Route::post('leagues/edit/{id}', [LeaguesController::class, 'store'])->name('leagues.update')->where('id', '\d+');
+Route::get('leagues/autocomplete-list', [LeaguesController::class, 'autocompleteList'])->name('leagues.autocomplete-list');
+Route::get('leagues/populate', [LeaguesController::class, 'populate']);
 
-Route::get('leagues', ['as' => 'leagues', 'uses' => 'LeaguesController@index']);
-Route::get('leagues/create', ['as' => 'leagues.create', 'uses' => 'LeaguesController@create']);
-Route::post('leagues/create', ['as' => 'leagues.store', 'uses' => 'LeaguesController@store']);
-Route::get('leagues/edit/{id}', ['as' => 'leagues.edit', 'uses' => 'LeaguesController@edit'])->where('id', '\d+');
-Route::post('leagues/edit/{id}', ['as' => 'leagues.update', 'uses' => 'LeaguesController@store'])->where('id', '\d+');
-Route::get('leagues/autocomplete-list', ['as' => 'leagues.autocomplete-list', 'uses' => 'LeaguesController@autocompleteList']);
-Route::get('leagues/populate', ['as' => 'leagues.populate', 'uses' => 'LeaguesController@populate']);
+Route::get('game-days', [GameDaysController::class, 'index'])->name('game-days');
+Route::get('game-days/create', [GameDaysController::class, 'create'])->name('game-days.create');
+Route::post('game-days/create', [GameDaysController::class, 'store'])->name('game-days.store');
+Route::get('game-days/edit/{id}', [GameDaysController::class, 'edit'])->name('game-days.edit')->where('id', '\d+');
+Route::post('game-days/edit/{id}', [GameDaysController::class, 'store'])->name('game-days.update')->where('id', '\d+');
+Route::get('game-days/teams/{id}', [GameDaysController::class, 'teams'])->name('game-days.teams')->where('id', '\d+');
+Route::post('game-days/teams/{id}', [GameDaysController::class, 'storeTeams'])->name('game-days.teams.update')->where('id', '\d+');
+Route::get('game-days/games/{id}', [GameDaysController::class, 'games'])->name('game-days.games')->where('id', '\d+');
+Route::post('game-days/games/{id}', [GameDaysController::class, 'storeGames'])->name('game-days.games.store')->where('id', '\d+');
+Route::get('game-days/schedule/{id}', [GameDaysController::class, 'schedule'])->name('game-days.schedule')->where('id', '\d+');
+Route::get('game-days/results/{id}', [GameDaysController::class, 'results'])->name('game-days.results')->where('id', '\d+');
+Route::get('game-days/print-schedule/{id}', [GameDaysController::class, 'printSchedule'])->name('game-days.print-schedule')->where('id', '\d+');
 
+Route::get('external/game-days/results/{id}', [ExternalController::class, 'gameDayResults'])->name('external.game-days.results')->where('id', '\d+');
 
-
-Route::get('game-days', ['as' => 'game-days', 'uses' => 'GameDaysController@index']);
-Route::get('game-days/create', ['as' => 'game-days.create', 'uses' => 'GameDaysController@create']);
-Route::post('game-days/create', ['as' => 'game-days.store', 'uses' => 'GameDaysController@store']);
-Route::get('game-days/edit/{id}', ['as' => 'game-days.edit', 'uses' => 'GameDaysController@edit'])->where('id', '\d+');
-Route::post('game-days/edit/{id}', ['as' => 'game-days.update', 'uses' => 'GameDaysController@store'])->where('id', '\d+');
-Route::get('game-days/teams/{id}', ['as' => 'game-days.teams', 'uses' => 'GameDaysController@teams'])->where('id', '\d+');
-Route::post('game-days/teams/{id}', ['as' => 'game-days.teams.update', 'uses' => 'GameDaysController@storeTeams'])->where('id', '\d+');
-Route::get('game-days/games/{id}', ['as' => 'game-days.games', 'uses' => 'GameDaysController@games'])->where('id', '\d+');
-Route::post('game-days/games/{id}', ['as' => 'game-days.games.store', 'uses' => 'GameDaysController@storeGames'])->where('id', '\d+');
-Route::get('game-days/schedule/{id}', ['as' => 'game-days.schedule', 'uses' => 'GameDaysController@schedule'])->where('id', '\d+');
-Route::get('game-days/results/{id}', ['as' => 'game-days.results', 'uses' => 'GameDaysController@results'])->where('id', '\d+');
-Route::get('game-days/print-schedule/{id}', ['as' => 'game-days.print-schedule', 'uses' => 'GameDaysController@printSchedule'])->where('id', '\d+');
-
-Route::get('external/game-days/results/{id}', ['as' => 'external.game-days.results', 'uses' => 'ExternalController@gameDayResults'])->where('id', '\d+');
-
-Route::get('game-sets/add', ['as' => 'game-sets.add', 'uses' => 'GameSetsController@add']);
-Route::get('game-sets/delete', ['as' => 'game-sets.delete', 'uses' => 'GameSetsController@destroy']);
+Route::get('game-sets/add', [GameSetsController::class, 'add'])->name('game-sets.add');
+Route::get('game-sets/delete', [GameSetsController::class, 'destroy'])->name('game-sets.delete');

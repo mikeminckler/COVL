@@ -1,0 +1,53 @@
+@tailwind base;
+
+@tailwind components;
+
+:root {
+}
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    @apply bg-slate-900 text-slate-200 font-light;
+}
+
+a {
+    @apply text-amber-500;
+}
+
+input {
+    @apply border-slate-300 border bg-white rounded-b px-2;
+}
+
+input:focus {
+    @apply outline-none border-amber-400;
+}
+
+div.input-block {
+    @apply mt-2
+}
+
+div.label {
+    @apply text-sm text-slate-500 bg-slate-200 px-2 rounded-t;
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+    @apply bg-amber-500 text-white font-medium px-4 py-1 rounded;
+}
+
+h1, h2, h3 {
+    @apply text-slate-300;
+}
+
+h1 {
+    @apply text-3xl;
+}
+
+h2 {
+    @apply text-2xl;
+}
+
+h3 {
+    @apply text-xl;
+}
+
+@tailwind utilities;
